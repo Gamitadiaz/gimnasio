@@ -53,7 +53,7 @@ export function TarjetaEjercicio({
           <p className="ejercicio-meta">
             {ejercicio.series} series de {sugerencia.meta} {unidad}
             {ejercicio.porLado ? " por lado" : ""}
-            {conPeso ? ` · ${sugerencia.peso} ${ejercicio.unidadPeso}` : ""} · descanso {ejercicio.descanso} s
+            {conPeso ? ` · ${sugerencia.peso}\u00a0${ejercicio.unidadPeso}` : ""} · descanso&nbsp;{ejercicio.descanso}&nbsp;s
           </p>
           <p className="sugerencia" data-tono={sugerencia.tono}>
             {sugerencia.texto}

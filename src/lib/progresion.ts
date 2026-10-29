@@ -52,12 +52,12 @@ export function sugerir(ejercicio: Ejercicio, previas: Serie[] | undefined): Sug
       peso: peso + ejercicio.subir,
       meta: ejercicio.meta,
       tono: "subir",
-      texto: `Te sobraban repeticiones: sube a ${peso + ejercicio.subir} kg.`,
+      texto: `Te sobraban repeticiones: sube a ${peso + ejercicio.subir}\u00a0kg.`,
     };
   }
   if (!completas && alLimite && conPeso && peso > 0) {
     const menos = Math.max(0, peso - ejercicio.subir);
-    return { peso: menos, meta: ejercicio.meta, tono: "bajar", texto: `Quedaste al límite: baja a ${menos} kg.` };
+    return { peso: menos, meta: ejercicio.meta, tono: "bajar", texto: `Quedaste al límite: baja a ${menos}\u00a0kg.` };
   }
   return {
     peso,

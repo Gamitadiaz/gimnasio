@@ -1,20 +1,19 @@
-/* Colores de la app. Cada tipo de sesión tiene el suyo:
-   cardio = turquesa, fuerza = rosa, flexibilidad = amarillo limón. */
+/* Estilo "deportivo limpio": fondo blanco, tinta negra y un solo color de acento (azul cobalto).
+   La personalidad la dan los números: Archivo muy ancha y pesada, como un dorsal de carrera. */
 :root {
-  --fondo: #17121f;
-  --capa: #221a2d;
-  --capa-2: #2e2440;
-  --linea: #3b3050;
-  --texto: #f4eff8;
-  --suave: #a99bb8;
-  --cardio: #3fd0e0;
-  --fuerza: #ff5c8a;
-  --flex: #d7e35a;
-  --peligro: #ff7a6b;
-  --radio: 18px;
-  --color-sesion: var(--fuerza);
-  color-scheme: dark;
-  font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  --fondo: #ffffff;
+  --capa: #f1f2f4;
+  --capa-2: #e3e5e9;
+  --linea: #e2e4e8;
+  --tinta: #000000;
+  --gris: #8a8f98;
+  --suave: #5c616a;
+  --acento: #1f3bff;
+  --acento-suave: #e8ebff;
+  --peligro: #d7263d;
+  --color-sesion: var(--acento);
+  color-scheme: light;
+  font-family: "Archivo Variable", system-ui, sans-serif;
   font-size: 17px;
   line-height: 1.45;
   -webkit-tap-highlight-color: transparent;
@@ -27,7 +26,7 @@
 body {
   margin: 0;
   background: var(--fondo);
-  color: var(--texto);
+  color: var(--tinta);
   min-height: 100dvh;
 }
 
@@ -44,31 +43,45 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-sesion);
+  outline: 3px solid var(--acento);
   outline-offset: 2px;
 }
 
 h1,
 h2,
 h3 {
-  line-height: 1.1;
   margin: 0;
+  line-height: 1.05;
+  font-stretch: 112%;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 h1 {
-  font-size: 2rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
+  font-size: 1.9rem;
+  margin-bottom: 4px;
 }
 
 h2 {
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 1.1rem;
 }
 
 p {
   margin: 0;
+}
+
+/* Los números importantes siempre en ancho máximo y con cifras del mismo ancho. */
+.cifra strong,
+.semana strong,
+.guia-reloj,
+.descanso-reloj,
+.prueba-valor strong,
+.contador-valor input,
+.sobraban button,
+.ejercicio-cuenta {
+  font-stretch: 125%;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
 }
 
 .pagina,
@@ -78,7 +91,7 @@ p {
   padding: calc(env(safe-area-inset-top) + 20px) 16px 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 
 .pagina {
@@ -86,10 +99,10 @@ p {
 }
 
 .sesion {
-  padding-bottom: calc(env(safe-area-inset-bottom) + 120px);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 132px);
 }
 
-/* Botones */
+/* Botones: rectángulos firmes, el principal en azul. */
 .boton {
   display: flex;
   align-items: center;
@@ -97,10 +110,11 @@ p {
   min-height: 52px;
   padding: 0 20px;
   border: 0;
-  border-radius: 999px;
-  background: var(--color-sesion);
-  color: var(--fondo);
-  font-weight: 750;
+  border-radius: 12px;
+  background: var(--acento);
+  color: #fff;
+  font-weight: 700;
+  font-stretch: 112%;
 }
 
 .boton.grande {
@@ -110,12 +124,13 @@ p {
 }
 
 .boton.secundario {
-  background: var(--capa-2);
-  color: var(--texto);
+  background: var(--capa);
+  color: var(--tinta);
 }
 
 .boton:active,
-.sobraban button:active {
+.sobraban button:active,
+.contador-fila button:active {
   transform: scale(0.97);
 }
 
@@ -142,7 +157,7 @@ p {
 .inicio {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 28px;
 }
 
 .fecha {
@@ -152,29 +167,43 @@ p {
 .hoy {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 4px 0 8px;
+  gap: 10px;
 }
 
 .hoy-etiqueta {
-  color: var(--color-sesion);
-  font-weight: 700;
+  color: var(--suave);
 }
 
-/* Lo más llamativo de la app: el nombre de la sesión, enorme y en su color. */
 .hoy-nombre {
-  font-size: clamp(3.4rem, 19vw, 5.6rem);
-  font-weight: 800;
-  font-stretch: 78%;
-  letter-spacing: -0.04em;
-  line-height: 0.88;
-  color: var(--color-sesion);
+  font-size: 2.6rem;
   margin: 0;
+}
+
+/* Lo memorable de la app: el número del día, enorme. */
+.cifra {
+  display: flex;
+  flex-direction: column;
+  margin: 4px 0 6px;
+}
+
+.cifra strong {
+  font-size: clamp(7rem, 40vw, 10rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: var(--acento);
+  margin-left: -0.04em;
+}
+
+.cifra span {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-top: 10px;
 }
 
 .hoy-resumen {
   color: var(--suave);
-  max-width: 28ch;
+  max-width: 32ch;
+  margin-bottom: 8px;
 }
 
 .otras {
@@ -182,6 +211,7 @@ p {
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
+  margin-top: 8px;
   color: var(--suave);
   font-size: 0.9rem;
 }
@@ -191,29 +221,25 @@ p {
 }
 
 .otras button {
-  border: 1.5px solid var(--color-sesion);
-  background: transparent;
-  color: var(--texto);
-  border-radius: 999px;
-  padding: 8px 14px;
+  border: 0;
+  background: var(--capa);
+  border-radius: 10px;
+  padding: 10px 14px;
   font-size: 0.95rem;
+  font-weight: 600;
 }
 
+/* Secciones planas separadas por una línea, sin tarjetas. */
 .aviso,
 .instalar,
 .prueba,
 .bloque,
 .recordatorio {
-  background: var(--capa);
-  border-radius: var(--radio);
-  padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.aviso {
-  box-shadow: inset 4px 0 0 var(--peligro);
+  padding-top: 20px;
+  border-top: 1px solid var(--linea);
 }
 
 .instalar p,
@@ -221,11 +247,32 @@ p {
   color: var(--suave);
 }
 
+.aviso h2::before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--peligro);
+  margin-right: 8px;
+  vertical-align: 0.1em;
+}
+
 .recordatorio {
-  border: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  background: none;
+  padding-left: 0;
+  padding-right: 0;
   text-align: left;
-  box-shadow: inset 4px 0 0 var(--flex);
   gap: 4px;
+}
+
+.recordatorio strong {
+  color: var(--acento);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .recordatorio span {
@@ -236,29 +283,26 @@ p {
 .semana {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--linea);
 }
 
 .semana div {
-  background: var(--capa);
-  border-radius: 14px;
-  padding: 14px 12px;
   display: flex;
   flex-direction: column;
 }
 
 .semana strong {
-  font-size: 1.8rem;
-  font-weight: 800;
+  font-size: 2.4rem;
   line-height: 1;
-  font-variant-numeric: tabular-nums;
 }
 
 .semana span {
   color: var(--suave);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   line-height: 1.25;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 /* Sesión */
@@ -270,7 +314,8 @@ p {
 
 .sesion-cabeza .enlace {
   text-decoration: none;
-  font-size: 1rem;
+  font-weight: 600;
+  color: var(--tinta);
 }
 
 .sesion-tiempo {
@@ -279,15 +324,8 @@ p {
 }
 
 .sesion-nombre {
-  font-size: 3.2rem;
-  font-stretch: 78%;
-  letter-spacing: -0.035em;
-  line-height: 0.9;
-  color: var(--color-sesion);
-}
-
-.bloque[data-hecho] {
-  opacity: 0.75;
+  font-size: 2.6rem;
+  margin-top: -8px;
 }
 
 .bloque > p {
@@ -301,11 +339,15 @@ p {
   gap: 8px;
 }
 
+.bloque[data-hecho] .bloque-titulo h2 {
+  color: var(--suave);
+}
+
 .palomita {
-  color: var(--fondo);
-  background: var(--flex);
-  border-radius: 999px;
-  padding: 2px 10px;
+  color: #fff;
+  background: var(--tinta);
+  border-radius: 6px;
+  padding: 2px 8px;
   font-size: 0.8rem;
   font-weight: 700;
 }
@@ -318,17 +360,18 @@ p {
 .ejercicios {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  border-top: 1px solid var(--linea);
 }
 
 .ejercicio {
-  background: var(--capa);
-  border-radius: var(--radio);
-  overflow: hidden;
+  border-bottom: 1px solid var(--linea);
 }
 
 .ejercicio[data-abierta] {
-  box-shadow: inset 0 0 0 2px var(--color-sesion);
+  background: var(--capa);
+  border-radius: 16px;
+  border-bottom-color: transparent;
+  margin: 8px 0;
 }
 
 .ejercicio-cabeza {
@@ -337,10 +380,14 @@ p {
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  padding: 16px 18px;
+  padding: 16px 4px;
   border: 0;
   background: none;
   text-align: left;
+}
+
+.ejercicio[data-abierta] .ejercicio-cabeza {
+  padding: 18px 16px 10px;
 }
 
 .ejercicio-nombre {
@@ -348,21 +395,22 @@ p {
   font-size: 1.05rem;
 }
 
+.ejercicio[data-abierta] .ejercicio-nombre {
+  font-size: 1.3rem;
+  font-stretch: 112%;
+  font-weight: 800;
+}
+
 .ejercicio-cuenta {
-  font-variant-numeric: tabular-nums;
-  color: var(--suave);
-  font-weight: 700;
+  color: var(--gris);
 }
 
 .ejercicio[data-completo] .ejercicio-cuenta {
-  color: var(--fondo);
-  background: var(--flex);
-  padding: 2px 10px;
-  border-radius: 999px;
+  color: var(--acento);
 }
 
 .ejercicio-cuerpo {
-  padding: 0 18px 18px;
+  padding: 0 16px 18px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -373,18 +421,21 @@ p {
 }
 
 .sugerencia {
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 10px 12px;
-  background: var(--capa-2);
+  background: var(--fondo);
   font-size: 0.95rem;
 }
 
 .sugerencia[data-tono="subir"] {
-  background: color-mix(in srgb, var(--flex) 18%, var(--capa));
+  background: var(--acento-suave);
+  color: var(--acento);
+  font-weight: 600;
 }
 
 .sugerencia[data-tono="bajar"] {
-  background: color-mix(in srgb, var(--peligro) 18%, var(--capa));
+  color: var(--peligro);
+  font-weight: 600;
 }
 
 .consejo {
@@ -398,18 +449,16 @@ p {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
 }
 
 .series li {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 4px 8px 12px;
-  background: var(--fondo);
-  border-radius: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--capa-2);
   font-variant-numeric: tabular-nums;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .series-sobra {
@@ -422,15 +471,16 @@ p {
 .series li button {
   border: 0;
   background: none;
-  color: var(--suave);
-  width: 36px;
-  height: 36px;
+  color: var(--gris);
+  width: 40px;
+  height: 40px;
   font-size: 1.3rem;
 }
 
 .ejercicio-listo {
-  color: var(--flex);
+  color: var(--acento);
   font-size: 0.92rem;
+  font-weight: 600;
 }
 
 .captura {
@@ -454,16 +504,18 @@ p {
   display: flex;
   align-items: stretch;
   background: var(--fondo);
-  border-radius: 14px;
-  height: 56px;
+  border: 1.5px solid var(--capa-2);
+  border-radius: 12px;
+  height: 60px;
 }
 
 .contador-fila button {
-  width: 48px;
+  width: 52px;
   border: 0;
   background: none;
-  font-size: 1.6rem;
-  color: var(--color-sesion);
+  font-size: 1.7rem;
+  font-weight: 500;
+  color: var(--acento);
 }
 
 .contador-valor {
@@ -482,9 +534,7 @@ p {
   border: 0;
   background: none;
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: 750;
-  font-variant-numeric: tabular-nums;
+  font-size: 1.6rem;
   padding: 0;
 }
 
@@ -499,7 +549,8 @@ p {
 }
 
 .pregunta {
-  font-weight: 600;
+  font-weight: 700;
+  margin-top: 4px;
 }
 
 .sobraban {
@@ -509,18 +560,18 @@ p {
 }
 
 .sobraban button {
-  height: 64px;
-  border: 0;
-  border-radius: 16px;
-  background: var(--capa-2);
-  font-size: 1.5rem;
-  font-weight: 800;
+  height: 68px;
+  border: 1.5px solid var(--capa-2);
+  border-radius: 12px;
+  background: var(--fondo);
+  font-size: 1.6rem;
 }
 
-/* 2 y 3+ son la meta: se marcan con el color de la sesión. */
+/* 2 y 3+ son la meta: van en azul. */
 .sobraban button:nth-child(n + 3) {
-  background: var(--color-sesion);
-  color: var(--fondo);
+  background: var(--acento);
+  border-color: var(--acento);
+  color: #fff;
 }
 
 .opciones {
@@ -530,17 +581,17 @@ p {
 }
 
 .opciones button {
-  border: 1.5px solid var(--linea);
-  background: none;
-  border-radius: 999px;
-  padding: 8px 14px;
+  border: 1.5px solid var(--capa-2);
+  background: var(--fondo);
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-weight: 600;
 }
 
 .opciones button[aria-pressed="true"] {
-  border-color: var(--color-sesion);
-  background: var(--color-sesion);
-  color: var(--fondo);
-  font-weight: 700;
+  border-color: var(--tinta);
+  background: var(--tinta);
+  color: #fff;
 }
 
 .form-cardio {
@@ -563,12 +614,15 @@ p {
   gap: 6px;
   color: var(--suave);
   font-size: 0.9rem;
+  padding-top: 20px;
+  border-top: 1px solid var(--linea);
 }
 
 .nota textarea {
   background: var(--capa);
+  color: var(--tinta);
   border: 0;
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 12px;
   font-size: 1rem;
   resize: vertical;
@@ -585,7 +639,7 @@ p {
   align-self: center;
 }
 
-/* Descanso: barra fija abajo que se va vaciando. */
+/* Descanso: barra negra fija abajo; el azul se va vaciando. */
 .descanso {
   position: fixed;
   left: 12px;
@@ -597,16 +651,17 @@ p {
   align-items: center;
   gap: 8px;
   padding: 10px 10px 10px 18px;
-  border-radius: 999px;
-  background: var(--capa-2);
+  border-radius: 16px;
+  background: var(--tinta);
+  color: #fff;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgb(0 0 0 / 0.5);
 }
 
 .descanso-barra {
   position: absolute;
-  inset: 0 auto 0 0;
-  background: color-mix(in srgb, var(--color-sesion) 30%, transparent);
+  inset: auto auto 0 0;
+  height: 4px;
+  background: var(--acento);
   transition: width 0.25s linear;
 }
 
@@ -615,22 +670,22 @@ p {
 }
 
 .descanso-texto {
-  color: var(--suave);
+  color: #b9bcc2;
 }
 
 .descanso-reloj {
-  font-size: 1.6rem;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
+  font-size: 2rem;
   margin-right: auto;
 }
 
 .descanso button {
   border: 0;
-  background: var(--fondo);
-  border-radius: 999px;
-  height: 44px;
+  background: #26282c;
+  color: #fff;
+  border-radius: 10px;
+  height: 46px;
   padding: 0 14px;
+  font-weight: 600;
 }
 
 /* Temporizador guiado (intervalos y estiramientos) */
@@ -648,36 +703,33 @@ p {
 .guia-fin {
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--flex);
+  font-stretch: 112%;
+  color: var(--acento);
 }
 
 .guia-paso {
-  background: var(--fondo);
-  border-radius: var(--radio);
-  padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  border-top: 5px solid var(--color-paso);
+  padding: 18px 16px;
+  border-radius: 16px;
+  background: var(--capa);
 }
 
 .guia-etiqueta {
-  color: var(--color-paso);
-  font-weight: 700;
+  color: var(--suave);
+  font-weight: 600;
   font-size: 0.9rem;
 }
 
 .guia-paso h3 {
   font-size: 1.5rem;
-  font-weight: 800;
+  color: var(--color-paso);
 }
 
 .guia-reloj {
-  font-size: 4.5rem;
-  font-weight: 800;
-  font-stretch: 80%;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
+  font-size: clamp(5rem, 28vw, 7rem);
+  line-height: 0.9;
   letter-spacing: -0.03em;
   color: var(--color-paso);
 }
@@ -688,7 +740,7 @@ p {
 
 @keyframes latido {
   50% {
-    opacity: 0.45;
+    opacity: 0.35;
   }
 }
 
@@ -723,12 +775,7 @@ p {
 }
 
 .guia-controles .boton {
-  background: var(--color-paso);
   padding: 0 8px;
-}
-
-.guia-controles .boton.secundario {
-  background: var(--capa-2);
 }
 
 /* Historial y progreso */
@@ -736,7 +783,7 @@ p {
 .progreso {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .historial ul {
@@ -745,13 +792,11 @@ p {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  border-top: 1px solid var(--linea);
 }
 
 .historial li {
-  background: var(--capa);
-  border-radius: var(--radio);
-  box-shadow: inset 4px 0 0 var(--color-sesion);
+  border-bottom: 1px solid var(--linea);
 }
 
 .historial-fila {
@@ -759,15 +804,16 @@ p {
   border: 0;
   background: none;
   text-align: left;
-  padding: 14px 16px;
+  padding: 14px 0;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
 .historial-tipo {
-  font-weight: 750;
-  color: var(--color-sesion);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: 1.1rem;
 }
 
 .historial-fecha {
@@ -780,7 +826,7 @@ p {
 }
 
 .historial-detalle {
-  padding: 0 16px 14px;
+  padding: 0 0 14px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -792,8 +838,15 @@ p {
   font-style: italic;
 }
 
+.vacio {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .vacio p {
   color: var(--suave);
+  max-width: 34ch;
 }
 
 /* Progreso */
@@ -812,16 +865,15 @@ p {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 4px 6px;
+  gap: 4px 8px;
   color: var(--suave);
 }
 
 .prueba-valor strong {
-  font-size: 2.6rem;
-  font-weight: 800;
-  color: var(--texto);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
+  font-size: 3.6rem;
+  color: var(--tinta);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
 }
 
 .prueba-cambio {
@@ -830,7 +882,8 @@ p {
 }
 
 .prueba-cambio[data-mejor] {
-  color: var(--flex);
+  color: var(--acento);
+  font-weight: 600;
 }
 
 .prueba-lista {
@@ -845,7 +898,7 @@ p {
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  padding: 6px 0;
+  padding: 8px 0;
   border-top: 1px solid var(--linea);
 }
 
@@ -875,7 +928,7 @@ p {
 }
 
 .tabla td {
-  padding: 8px 0;
+  padding: 10px 0;
   border-top: 1px solid var(--linea);
 }
 
@@ -887,7 +940,7 @@ p {
 }
 
 .tabla td[data-mejor] {
-  color: var(--flex);
+  color: var(--acento);
   font-weight: 700;
 }
 
@@ -895,7 +948,7 @@ p {
 .respaldo {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .respaldo > p {
@@ -911,10 +964,11 @@ p {
 }
 
 .mensaje {
-  color: var(--flex);
+  color: var(--acento);
+  font-weight: 600;
 }
 
-/* Pestañas de abajo */
+/* Pestañas de abajo: la activa en negro con una raya azul. */
 .pestanas {
   position: fixed;
   left: 0;
@@ -922,8 +976,8 @@ p {
   bottom: 0;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 6px 8px calc(env(safe-area-inset-bottom) + 6px);
-  background: color-mix(in srgb, var(--fondo) 88%, transparent);
+  padding: 0 8px env(safe-area-inset-bottom);
+  background: rgb(255 255 255 / 0.94);
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--linea);
 }
@@ -931,15 +985,15 @@ p {
 .pestanas button {
   border: 0;
   background: none;
-  color: var(--suave);
-  min-height: 52px;
-  border-radius: 14px;
+  color: var(--gris);
+  min-height: 60px;
   font-weight: 600;
+  border-top: 3px solid transparent;
 }
 
 .pestanas button[aria-current="page"] {
-  color: var(--texto);
-  background: var(--capa);
+  color: var(--tinta);
+  border-top-color: var(--acento);
 }
 
 @media (prefers-reduced-motion: reduce) {

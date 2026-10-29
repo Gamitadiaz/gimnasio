@@ -13,16 +13,16 @@ import { minutosCardio, sugerir, ultimaVez } from "../lib/progresion";
 
 function pasosIntervalos(): Paso[] {
   const pasos: Paso[] = [
-    { titulo: "Calienta suave", segundos: INTERVALOS.calentar, color: "var(--flex)", detalle: "Ritmo cómodo, sube poco a poco." },
+    { titulo: "Calienta suave", segundos: INTERVALOS.calentar, color: "var(--gris)", detalle: "Ritmo cómodo, sube poco a poco." },
   ];
   for (let ronda = 1; ronda <= INTERVALOS.rondas; ronda++) {
     const etiqueta = `Ronda ${ronda} de ${INTERVALOS.rondas}`;
     pasos.push(
-      { titulo: "¡Fuerte!", etiqueta, segundos: INTERVALOS.fuerte, color: "var(--fuerza)", detalle: "Casi al máximo, sin perder la forma." },
-      { titulo: "Suave", etiqueta, segundos: INTERVALOS.suave, color: "var(--cardio)", detalle: "Recupera el aire, sin detenerte." },
+      { titulo: "¡Fuerte!", etiqueta, segundos: INTERVALOS.fuerte, color: "var(--acento)", detalle: "Casi al máximo, sin perder la forma." },
+      { titulo: "Suave", etiqueta, segundos: INTERVALOS.suave, color: "var(--tinta)", detalle: "Recupera el aire, sin detenerte." },
     );
   }
-  pasos.push({ titulo: "Enfría", segundos: INTERVALOS.enfriar, color: "var(--flex)", detalle: "Muy suave, deja que baje el pulso." });
+  pasos.push({ titulo: "Enfría", segundos: INTERVALOS.enfriar, color: "var(--gris)", detalle: "Muy suave, deja que baje el pulso." });
   return pasos;
 }
 
@@ -161,7 +161,7 @@ export function Sesion({ datos, onSalir }: { datos: Datos; onSalir: () => void }
             <>
               <Guia
                 onTerminar={() => undefined}
-                pasos={[{ titulo: "Ritmo constante", segundos: metaCardio * 60, color: "var(--cardio)", detalle: "Respira por la nariz si puedes." }]}
+                pasos={[{ titulo: "Ritmo constante", segundos: metaCardio * 60, color: "var(--acento)", detalle: "Respira por la nariz si puedes." }]}
                 textoEmpezar={`Iniciar ${metaCardio} min`}
               />
               <h3 className="subtitulo">Al terminar, anota cómo te fue</h3>

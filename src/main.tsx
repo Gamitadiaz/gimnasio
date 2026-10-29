@@ -1,4 +1,4 @@
-import "@fontsource-variable/bricolage-grotesque/standard.css";
+import "@fontsource-variable/archivo/wdth.css";
 import "./estilos.css";
 
 import { StrictMode } from "react";

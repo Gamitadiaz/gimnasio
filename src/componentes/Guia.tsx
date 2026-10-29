@@ -103,7 +103,7 @@ export function Guia({
   };
 
   return (
-    <div className="guia" style={{ "--color-paso": paso.color ?? "var(--flex)" } as CSSProperties}>
+    <div className="guia" style={{ "--color-paso": paso.color ?? "var(--acento)" } as CSSProperties}>
       <div className="guia-paso">
         {paso.etiqueta ? <span className="guia-etiqueta">{paso.etiqueta}</span> : null}
         <h3>{paso.titulo}</h3>

@@ -29,31 +29,31 @@ export const SESIONES: Record<TipoSesion, { nombre: string; corto: string; color
   cardio: {
     nombre: "Cardio largo",
     corto: "Cardio",
-    color: "var(--cardio)",
+    color: "var(--acento)",
     resumen: "Caminadora inclinada o bici a ritmo constante, luego estiramientos.",
   },
   "fuerza-a": {
     nombre: "Fuerza A",
     corto: "Fuerza A",
-    color: "var(--fuerza)",
+    color: "var(--acento)",
     resumen: "Sentadilla, press de pecho, remo, peso muerto rumano y plancha.",
   },
   intervalos: {
     nombre: "Intervalos",
     corto: "Intervalos",
-    color: "var(--cardio)",
+    color: "var(--acento)",
     resumen: "8 rondas de 30 s fuerte y 90 s suave en bici o elíptica.",
   },
   "fuerza-b": {
     nombre: "Fuerza B",
     corto: "Fuerza B",
-    color: "var(--fuerza)",
+    color: "var(--acento)",
     resumen: "Prensa, press de hombro, jalón, hip thrust y caminata del granjero.",
   },
   estirar: {
     nombre: "Estirar",
     corto: "Estirar",
-    color: "var(--flex)",
+    color: "var(--acento)",
     resumen: "Rutina larga de flexibilidad. Puedes hacerla en casa cualquier día.",
   },
 };

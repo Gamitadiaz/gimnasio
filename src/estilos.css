@@ -1,0 +1,952 @@
+/* Colores de la app. Cada tipo de sesión tiene el suyo:
+   cardio = turquesa, fuerza = rosa, flexibilidad = amarillo limón. */
+:root {
+  --fondo: #17121f;
+  --capa: #221a2d;
+  --capa-2: #2e2440;
+  --linea: #3b3050;
+  --texto: #f4eff8;
+  --suave: #a99bb8;
+  --cardio: #3fd0e0;
+  --fuerza: #ff5c8a;
+  --flex: #d7e35a;
+  --peligro: #ff7a6b;
+  --radio: 18px;
+  --color-sesion: var(--fuerza);
+  color-scheme: dark;
+  font-family: "Bricolage Grotesque Variable", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  min-height: 100dvh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-sesion);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+p {
+  margin: 0;
+}
+
+.pagina,
+.sesion {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 20px) 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pagina {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 96px);
+}
+
+.sesion {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 120px);
+}
+
+/* Botones */
+.boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-sesion);
+  color: var(--fondo);
+  font-weight: 750;
+}
+
+.boton.grande {
+  min-height: 64px;
+  font-size: 1.15rem;
+  width: 100%;
+}
+
+.boton.secundario {
+  background: var(--capa-2);
+  color: var(--texto);
+}
+
+.boton:active,
+.sobraban button:active {
+  transform: scale(0.97);
+}
+
+.enlace {
+  background: none;
+  border: 0;
+  padding: 8px 0;
+  color: var(--suave);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  align-self: flex-start;
+}
+
+.enlace.peligro {
+  color: var(--peligro);
+}
+
+.ayuda {
+  color: var(--suave);
+  font-size: 0.9rem;
+}
+
+/* Inicio */
+.inicio {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fecha {
+  color: var(--suave);
+}
+
+.hoy {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 4px 0 8px;
+}
+
+.hoy-etiqueta {
+  color: var(--color-sesion);
+  font-weight: 700;
+}
+
+/* Lo más llamativo de la app: el nombre de la sesión, enorme y en su color. */
+.hoy-nombre {
+  font-size: clamp(3.4rem, 19vw, 5.6rem);
+  font-weight: 800;
+  font-stretch: 78%;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  color: var(--color-sesion);
+  margin: 0;
+}
+
+.hoy-resumen {
+  color: var(--suave);
+  max-width: 28ch;
+}
+
+.otras {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--suave);
+  font-size: 0.9rem;
+}
+
+.otras span {
+  width: 100%;
+}
+
+.otras button {
+  border: 1.5px solid var(--color-sesion);
+  background: transparent;
+  color: var(--texto);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+}
+
+.aviso,
+.instalar,
+.prueba,
+.bloque,
+.recordatorio {
+  background: var(--capa);
+  border-radius: var(--radio);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.aviso {
+  box-shadow: inset 4px 0 0 var(--peligro);
+}
+
+.instalar p,
+.aviso p {
+  color: var(--suave);
+}
+
+.recordatorio {
+  border: 0;
+  text-align: left;
+  box-shadow: inset 4px 0 0 var(--flex);
+  gap: 4px;
+}
+
+.recordatorio span {
+  color: var(--suave);
+  font-size: 0.92rem;
+}
+
+.semana {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.semana div {
+  background: var(--capa);
+  border-radius: 14px;
+  padding: 14px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.semana strong {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.semana span {
+  color: var(--suave);
+  font-size: 0.78rem;
+  line-height: 1.25;
+  margin-top: 4px;
+}
+
+/* Sesión */
+.sesion-cabeza {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sesion-cabeza .enlace {
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.sesion-tiempo {
+  color: var(--suave);
+  font-variant-numeric: tabular-nums;
+}
+
+.sesion-nombre {
+  font-size: 3.2rem;
+  font-stretch: 78%;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  color: var(--color-sesion);
+}
+
+.bloque[data-hecho] {
+  opacity: 0.75;
+}
+
+.bloque > p {
+  color: var(--suave);
+}
+
+.bloque-titulo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.palomita {
+  color: var(--fondo);
+  background: var(--flex);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.subtitulo {
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.ejercicios {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ejercicio {
+  background: var(--capa);
+  border-radius: var(--radio);
+  overflow: hidden;
+}
+
+.ejercicio[data-abierta] {
+  box-shadow: inset 0 0 0 2px var(--color-sesion);
+}
+
+.ejercicio-cabeza {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border: 0;
+  background: none;
+  text-align: left;
+}
+
+.ejercicio-nombre {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.ejercicio-cuenta {
+  font-variant-numeric: tabular-nums;
+  color: var(--suave);
+  font-weight: 700;
+}
+
+.ejercicio[data-completo] .ejercicio-cuenta {
+  color: var(--fondo);
+  background: var(--flex);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.ejercicio-cuerpo {
+  padding: 0 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ejercicio-meta {
+  font-weight: 600;
+}
+
+.sugerencia {
+  border-radius: 12px;
+  padding: 10px 12px;
+  background: var(--capa-2);
+  font-size: 0.95rem;
+}
+
+.sugerencia[data-tono="subir"] {
+  background: color-mix(in srgb, var(--flex) 18%, var(--capa));
+}
+
+.sugerencia[data-tono="bajar"] {
+  background: color-mix(in srgb, var(--peligro) 18%, var(--capa));
+}
+
+.consejo {
+  color: var(--suave);
+  font-size: 0.92rem;
+}
+
+.series {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.series li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 4px 8px 12px;
+  background: var(--fondo);
+  border-radius: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.series-sobra {
+  color: var(--suave);
+  font-weight: 400;
+  font-size: 0.88rem;
+  margin-left: auto;
+}
+
+.series li button {
+  border: 0;
+  background: none;
+  color: var(--suave);
+  width: 36px;
+  height: 36px;
+  font-size: 1.3rem;
+}
+
+.ejercicio-listo {
+  color: var(--flex);
+  font-size: 0.92rem;
+}
+
+.captura {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 10px;
+}
+
+.contador {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contador-etiqueta {
+  color: var(--suave);
+  font-size: 0.82rem;
+}
+
+.contador-fila {
+  display: flex;
+  align-items: stretch;
+  background: var(--fondo);
+  border-radius: 14px;
+  height: 56px;
+}
+
+.contador-fila button {
+  width: 48px;
+  border: 0;
+  background: none;
+  font-size: 1.6rem;
+  color: var(--color-sesion);
+}
+
+.contador-valor {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+  padding-top: 12px;
+}
+
+.contador-valor input {
+  min-width: 2ch;
+  max-width: 100%;
+  border: 0;
+  background: none;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  padding: 0;
+}
+
+.contador-valor input:focus {
+  outline: none;
+}
+
+.contador-valor small {
+  color: var(--suave);
+  flex: 0 0 auto;
+  padding-right: 4px;
+}
+
+.pregunta {
+  font-weight: 600;
+}
+
+.sobraban {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.sobraban button {
+  height: 64px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--capa-2);
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+/* 2 y 3+ son la meta: se marcan con el color de la sesión. */
+.sobraban button:nth-child(n + 3) {
+  background: var(--color-sesion);
+  color: var(--fondo);
+}
+
+.opciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.opciones button {
+  border: 1.5px solid var(--linea);
+  background: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+.opciones button[aria-pressed="true"] {
+  border-color: var(--color-sesion);
+  background: var(--color-sesion);
+  color: var(--fondo);
+  font-weight: 700;
+}
+
+.form-cardio {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resumen-cardio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.nota {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--suave);
+  font-size: 0.9rem;
+}
+
+.nota textarea {
+  background: var(--capa);
+  border: 0;
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.sesion-final {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: stretch;
+}
+
+.sesion-final .enlace {
+  align-self: center;
+}
+
+/* Descanso: barra fija abajo que se va vaciando. */
+.descanso {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(env(safe-area-inset-bottom) + 12px);
+  max-width: 33rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 10px 10px 18px;
+  border-radius: 999px;
+  background: var(--capa-2);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.5);
+}
+
+.descanso-barra {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: color-mix(in srgb, var(--color-sesion) 30%, transparent);
+  transition: width 0.25s linear;
+}
+
+.descanso > :not(.descanso-barra) {
+  position: relative;
+}
+
+.descanso-texto {
+  color: var(--suave);
+}
+
+.descanso-reloj {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  margin-right: auto;
+}
+
+.descanso button {
+  border: 0;
+  background: var(--fondo);
+  border-radius: 999px;
+  height: 44px;
+  padding: 0 14px;
+}
+
+/* Temporizador guiado (intervalos y estiramientos) */
+.guia {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.guia-total {
+  color: var(--suave);
+  font-size: 0.9rem;
+}
+
+.guia-fin {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--flex);
+}
+
+.guia-paso {
+  background: var(--fondo);
+  border-radius: var(--radio);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 5px solid var(--color-paso);
+}
+
+.guia-etiqueta {
+  color: var(--color-paso);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.guia-paso h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.guia-reloj {
+  font-size: 4.5rem;
+  font-weight: 800;
+  font-stretch: 80%;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  color: var(--color-paso);
+}
+
+.guia-reloj[data-final] {
+  animation: latido 1s steps(2) infinite;
+}
+
+@keyframes latido {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.guia-detalle {
+  color: var(--suave);
+}
+
+.guia-barra {
+  height: 6px;
+  background: var(--capa-2);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.guia-barra span {
+  display: block;
+  height: 100%;
+  background: var(--color-paso);
+  transition: width 0.25s linear;
+}
+
+.guia-siguiente {
+  color: var(--suave);
+  font-size: 0.9rem;
+}
+
+.guia-controles {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: 8px;
+}
+
+.guia-controles .boton {
+  background: var(--color-paso);
+  padding: 0 8px;
+}
+
+.guia-controles .boton.secundario {
+  background: var(--capa-2);
+}
+
+/* Historial y progreso */
+.historial,
+.progreso {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.historial ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.historial li {
+  background: var(--capa);
+  border-radius: var(--radio);
+  box-shadow: inset 4px 0 0 var(--color-sesion);
+}
+
+.historial-fila {
+  width: 100%;
+  border: 0;
+  background: none;
+  text-align: left;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.historial-tipo {
+  font-weight: 750;
+  color: var(--color-sesion);
+}
+
+.historial-fecha {
+  font-size: 0.92rem;
+}
+
+.historial-resumen {
+  color: var(--suave);
+  font-size: 0.88rem;
+}
+
+.historial-detalle {
+  padding: 0 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.92rem;
+}
+
+.historial-nota {
+  color: var(--suave);
+  font-style: italic;
+}
+
+.vacio p {
+  color: var(--suave);
+}
+
+/* Progreso */
+.prueba header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.prueba-fecha {
+  color: var(--suave);
+  font-size: 0.85rem;
+}
+
+.prueba-valor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 6px;
+  color: var(--suave);
+}
+
+.prueba-valor strong {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--texto);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.prueba-cambio {
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.prueba-cambio[data-mejor] {
+  color: var(--flex);
+}
+
+.prueba-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.prueba-lista li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  border-top: 1px solid var(--linea);
+}
+
+.prueba-captura {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.prueba-captura > p {
+  color: var(--suave);
+  font-size: 0.92rem;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabla th {
+  text-align: left;
+  color: var(--suave);
+  font-weight: 500;
+  padding-bottom: 6px;
+}
+
+.tabla td {
+  padding: 8px 0;
+  border-top: 1px solid var(--linea);
+}
+
+.tabla td + td,
+.tabla th + th {
+  text-align: right;
+  padding-left: 8px;
+  white-space: nowrap;
+}
+
+.tabla td[data-mejor] {
+  color: var(--flex);
+  font-weight: 700;
+}
+
+/* Respaldo */
+.respaldo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.respaldo > p {
+  color: var(--suave);
+}
+
+.respaldo-estado {
+  font-size: 0.95rem;
+}
+
+.archivo input {
+  display: none;
+}
+
+.mensaje {
+  color: var(--flex);
+}
+
+/* Pestañas de abajo */
+.pestanas {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 6px 8px calc(env(safe-area-inset-bottom) + 6px);
+  background: color-mix(in srgb, var(--fondo) 88%, transparent);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--linea);
+}
+
+.pestanas button {
+  border: 0;
+  background: none;
+  color: var(--suave);
+  min-height: 52px;
+  border-radius: 14px;
+  font-weight: 600;
+}
+
+.pestanas button[aria-current="page"] {
+  color: var(--texto);
+  background: var(--capa);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

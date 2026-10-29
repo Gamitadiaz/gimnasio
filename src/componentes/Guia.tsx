@@ -2,6 +2,7 @@ import { type CSSProperties, useEffect, useRef, useState } from "react";
 
 import { pitido, reloj } from "../lib/aviso";
 import { useTic } from "./basicos";
+import { Anillo } from "./iconos";
 
 // Temporizador por pasos: lo usan los intervalos y los estiramientos.
 // Pita al cambiar de paso y hace cuenta regresiva en los últimos 3 segundos.
@@ -103,17 +104,19 @@ export function Guia({
   };
 
   return (
-    <div className="guia" style={{ "--color-paso": paso.color ?? "var(--acento)" } as CSSProperties}>
+    <div className="guia" style={{ "--color-paso": paso.color ?? "var(--acento-texto)" } as CSSProperties}>
       <div className="guia-paso">
         {paso.etiqueta ? <span className="guia-etiqueta">{paso.etiqueta}</span> : null}
         <h3>{paso.titulo}</h3>
-        <p className="guia-reloj" data-final={segundo <= 3 || undefined}>
-          {reloj(restante)}
-        </p>
+        <Anillo fraccion={1 - restante / paso.segundos} grosor={10} tamano={232}>
+          <p className="guia-reloj" data-final={segundo <= 3 || undefined}>
+            {reloj(restante)}
+          </p>
+          <p className="guia-de">
+            paso {vista.indice + 1} de {pasos.length}
+          </p>
+        </Anillo>
         {paso.detalle ? <p className="guia-detalle">{paso.detalle}</p> : null}
-        <div className="guia-barra">
-          <span style={{ width: `${(1 - restante / paso.segundos) * 100}%` }} />
-        </div>
       </div>
       <p className="guia-siguiente">{siguiente ? `Después: ${siguiente.titulo}` : "Es el último paso"}</p>
       <div className="guia-controles">

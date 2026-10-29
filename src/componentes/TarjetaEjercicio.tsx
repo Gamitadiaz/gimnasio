@@ -43,8 +43,10 @@ export function TarjetaEjercicio({
     <article className="ejercicio" data-abierta={abierta || undefined} data-completo={completo || undefined}>
       <button className="ejercicio-cabeza" onClick={onAbrir} type="button">
         <span className="ejercicio-nombre">{ejercicio.nombre}</span>
-        <span className="ejercicio-cuenta">
-          {series.length}/{ejercicio.series}
+        <span aria-label={`${series.length} de ${ejercicio.series} series`} className="ejercicio-cuenta">
+          {Array.from({ length: Math.max(ejercicio.series, series.length) }, (_, i) => (
+            <span data-lleno={i < series.length || undefined} key={i} />
+          ))}
         </span>
       </button>
 

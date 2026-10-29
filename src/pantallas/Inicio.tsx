@@ -1,5 +1,4 @@
-import type { CSSProperties } from "react";
-
+import { IconoSesion } from "../componentes/iconos";
 import { activarSonido, fechaLarga } from "../lib/aviso";
 import { type Datos, guardar, nuevoId } from "../lib/datos";
 import { EJERCICIOS, ESTIRAMIENTOS, INTERVALOS, SESIONES, type TipoSesion } from "../lib/plan";
@@ -53,14 +52,45 @@ export function Inicio({ datos, onEntrenar, onIr }: { datos: Datos; onEntrenar: 
     terminadas.length >= 3 && (!datos.ultimoRespaldo || diasDesde(datos.ultimoRespaldo) >= 14);
   const instalada = matchMedia("(display-mode: standalone)").matches || ("standalone" in navigator && navigator.standalone);
 
+  // Tira de la semana: un círculo por día, con el ícono de lo que entrenaste.
+  const dias = Array.from({ length: 7 }, (_, i) => {
+    const dia = new Date(lunes);
+    dia.setDate(lunes.getDate() + i);
+    const hecha = semana.find((s) => new Date(s.inicio).toDateString() === dia.toDateString());
+    return { letra: "LMMJVSD"[i], dia, hecha, hoy: dia.toDateString() === new Date().toDateString() };
+  });
+
+  const actual = datos.actual;
+
   return (
     <div className="inicio">
-      <p className="fecha">{fechaLarga(new Date().toISOString())}</p>
+      <header className="inicio-cabeza">
+        <p className="fecha">{fechaLarga(new Date().toISOString())}</p>
+        <ol aria-label="Esta semana" className="dias">
+          {dias.map((d) => (
+            <li data-hecha={d.hecha ? true : undefined} data-hoy={d.hoy || undefined} key={d.dia.toDateString()}>
+              <span className="dias-letra">{d.letra}</span>
+              <span className="dias-punto">
+                {d.hecha ? <IconoSesion tamano={15} tipo={d.hecha.tipo} /> : d.dia.getDate()}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </header>
 
-      {datos.actual ? (
-        <section className="hoy" style={{ "--color-sesion": SESIONES[datos.actual.tipo].color } as CSSProperties}>
-          <p className="hoy-etiqueta">Sesión en curso</p>
-          <h1 className="hoy-nombre">{SESIONES[datos.actual.tipo].nombre}</h1>
+      {actual ? (
+        <section className="hoy">
+          <div className="hoy-arriba">
+            <span className="hoy-icono">
+              <IconoSesion tamano={20} tipo={actual.tipo} />
+            </span>
+            <p className="hoy-etiqueta">Sesión en curso</p>
+          </div>
+          <h1 className="hoy-nombre">{SESIONES[actual.tipo].nombre}</h1>
+          <p className="hoy-resumen">
+            Empezaste hace {Math.floor((Date.now() - new Date(actual.inicio).getTime()) / 60_000)} min. Lo que
+            anotaste sigue guardado.
+          </p>
           <button
             className="boton grande"
             onClick={() => {
@@ -73,43 +103,40 @@ export function Inicio({ datos, onEntrenar, onIr }: { datos: Datos; onEntrenar: 
           </button>
         </section>
       ) : (
-        <section className="hoy" style={{ "--color-sesion": info.color } as CSSProperties}>
-          <p className="hoy-etiqueta">{terminadas.length === 0 ? "Tu primer día" : "Hoy toca"}</p>
-          <h1 className="hoy-nombre">{info.nombre}</h1>
-          <p className="cifra">
-            <strong>{cifra.valor}</strong>
-            <span>{cifra.texto}</span>
-          </p>
-          <p className="hoy-resumen">{info.resumen}</p>
-          <button className="boton grande" onClick={() => empezar(toca)} type="button">
-            Empezar
-          </button>
-          <div className="otras">
-            <span>¿Prefieres otra sesión?</span>
-            {ORDEN.filter((t) => t !== toca).map((tipo) => (
-              <button key={tipo} onClick={() => empezar(tipo)} type="button">
-                {SESIONES[tipo].corto}
-              </button>
-            ))}
-          </div>
-        </section>
+        <>
+          <section className="hoy">
+            <div className="hoy-arriba">
+              <span className="hoy-icono">
+                <IconoSesion tamano={20} tipo={toca} />
+              </span>
+              <p className="hoy-etiqueta">{terminadas.length === 0 ? "Tu primer día" : "Hoy toca"}</p>
+            </div>
+            <h1 className="hoy-nombre">{info.nombre}</h1>
+            <p className="cifra">
+              <strong>{cifra.valor}</strong>
+              <span>{cifra.texto}</span>
+            </p>
+            <p className="hoy-resumen">{info.resumen}</p>
+            <button className="boton grande" onClick={() => empezar(toca)} type="button">
+              Empezar
+            </button>
+          </section>
+          <section className="otras">
+            <h2>¿Prefieres otra sesión?</h2>
+            <div className="otras-lista">
+              {ORDEN.filter((t) => t !== toca).map((tipo) => (
+                <button key={tipo} onClick={() => empezar(tipo)} type="button">
+                  <IconoSesion tamano={20} tipo={tipo} />
+                  <span>{SESIONES[tipo].corto}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+        </>
       )}
 
-      {!datos.avisoVisto ? (
-        <section className="aviso">
-          <h2>Escucha a tu cuerpo</h2>
-          <p>
-            Si sientes dolor en el pecho, mareo o una falta de aire que no se calma al bajar el ritmo, detente y busca
-            atención. El cansancio y el ardor en los músculos son normales.
-          </p>
-          <button className="boton secundario" onClick={() => guardar((d) => ({ ...d, avisoVisto: true }))} type="button">
-            Entendido
-          </button>
-        </section>
-      ) : null}
-
       {terminadas.length > 0 ? (
-        <section className="semana" aria-label="Tu avance">
+        <section aria-label="Tu avance" className="semana">
           <div>
             <strong>{semana.length}</strong>
             <span>sesiones esta semana</span>
@@ -124,6 +151,20 @@ export function Inicio({ datos, onEntrenar, onIr }: { datos: Datos; onEntrenar: 
           </div>
         </section>
       ) : null}
+
+      {!datos.avisoVisto ? (
+        <section className="aviso">
+          <h2>Escucha a tu cuerpo</h2>
+          <p>
+            Si sientes dolor en el pecho, mareo o una falta de aire que no se calma al bajar el ritmo, detente y busca
+            atención. El cansancio y el ardor en los músculos son normales.
+          </p>
+          <button className="boton secundario" onClick={() => guardar((d) => ({ ...d, avisoVisto: true }))} type="button">
+            Entendido
+          </button>
+        </section>
+      ) : null}
+
 
       {tocaPrueba ? (
         <button className="recordatorio" onClick={() => onIr("progreso")} type="button">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { Icono } from "./componentes/iconos";
 import { pedirPersistencia, useDatos } from "./lib/datos";
 import { Historial } from "./pantallas/Historial";
 import { Inicio } from "./pantallas/Inicio";
@@ -44,7 +45,8 @@ export function App() {
       <nav className="pestanas">
         {PESTANAS.map((p) => (
           <button aria-current={pantalla === p.id ? "page" : undefined} key={p.id} onClick={() => setPantalla(p.id)} type="button">
-            {p.texto}
+            <Icono nombre={p.id === "inicio" ? "hoy" : p.id} tamano={22} />
+            <span>{p.texto}</span>
           </button>
         ))}
       </nav>

@@ -3,6 +3,7 @@ import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { Bloque, useTic } from "../componentes/basicos";
 import { FormCardio } from "../componentes/FormCardio";
 import { Guia, type Paso } from "../componentes/Guia";
+import { Anillo, Icono, IconoSesion } from "../componentes/iconos";
 import { TarjetaEjercicio } from "../componentes/TarjetaEjercicio";
 import { pitido, reloj, usePantallaEncendida } from "../lib/aviso";
 import { type Datos, guardar, type Sesion as TSesion, type Serie } from "../lib/datos";
@@ -18,7 +19,7 @@ function pasosIntervalos(): Paso[] {
   for (let ronda = 1; ronda <= INTERVALOS.rondas; ronda++) {
     const etiqueta = `Ronda ${ronda} de ${INTERVALOS.rondas}`;
     pasos.push(
-      { titulo: "¡Fuerte!", etiqueta, segundos: INTERVALOS.fuerte, color: "var(--acento)", detalle: "Casi al máximo, sin perder la forma." },
+      { titulo: "¡Fuerte!", etiqueta, segundos: INTERVALOS.fuerte, color: "var(--acento-texto)", detalle: "Casi al máximo, sin perder la forma." },
       { titulo: "Suave", etiqueta, segundos: INTERVALOS.suave, color: "var(--tinta)", detalle: "Recupera el aire, sin detenerte." },
     );
   }
@@ -104,6 +105,23 @@ export function Sesion({ datos, onSalir }: { datos: Datos; onSalir: () => void }
     onSalir();
   };
 
+  // Avance de la sesión: cada serie cuenta como una parte, igual que cada bloque.
+  const avance = {
+    total:
+      (sesion.tipo === "intervalos" ? 0 : 1) +
+      (esFuerza ? ejercicios.reduce((suma, e) => suma + e.series, 0) + 1 : 1) +
+      1,
+    hecho:
+      (sesion.tipo !== "intervalos" && sesion.calentamiento ? 1 : 0) +
+      (esFuerza
+        ? ejercicios.reduce((suma, e) => suma + Math.min(e.series, sesion.series[e.id]?.length ?? 0), 0) +
+          (sesion.cardioFinal ? 1 : 0)
+        : sesion.cardio
+          ? 1
+          : 0) +
+      (sesion.estiramiento ? 1 : 0),
+  };
+
   const minutos = Math.floor((Date.now() - new Date(sesion.inicio).getTime()) / 60_000);
   const metaCardio = minutosCardio(datos.sesiones);
 
@@ -115,7 +133,20 @@ export function Sesion({ datos, onSalir }: { datos: Datos; onSalir: () => void }
         </button>
         <span className="sesion-tiempo">{minutos} min</span>
       </header>
-      <h1 className="sesion-nombre">{info.nombre}</h1>
+      <div className="sesion-titulo">
+        <span className="hoy-icono">
+          <IconoSesion tamano={20} tipo={sesion.tipo} />
+        </span>
+        <h1 className="sesion-nombre">{info.nombre}</h1>
+      </div>
+      <div className="sesion-avance">
+        <div className="sesion-avance-barra">
+          <span style={{ width: `${(avance.hecho / avance.total) * 100}%` }} />
+        </div>
+        <span>
+          {avance.hecho} de {avance.total}
+        </span>
+      </div>
 
       {sesion.tipo !== "intervalos" ? (
         <Bloque hecho={sesion.calentamiento} titulo="Calentamiento">
@@ -161,7 +192,7 @@ export function Sesion({ datos, onSalir }: { datos: Datos; onSalir: () => void }
             <>
               <Guia
                 onTerminar={() => undefined}
-                pasos={[{ titulo: "Ritmo constante", segundos: metaCardio * 60, color: "var(--acento)", detalle: "Respira por la nariz si puedes." }]}
+                pasos={[{ titulo: "Ritmo constante", segundos: metaCardio * 60, color: "var(--acento-texto)", detalle: "Respira por la nariz si puedes." }]}
                 textoEmpezar={`Iniciar ${metaCardio} min`}
               />
               <h3 className="subtitulo">Al terminar, anota cómo te fue</h3>
@@ -247,9 +278,13 @@ export function Sesion({ datos, onSalir }: { datos: Datos; onSalir: () => void }
 
       {descanso && restante > 0 ? (
         <div className="descanso" role="timer">
-          <div className="descanso-barra" style={{ width: `${(restante / descanso.total) * 100}%` }} />
-          <span className="descanso-texto">Descanso</span>
-          <span className="descanso-reloj">{reloj(restante)}</span>
+          <Anillo fraccion={restante / descanso.total} grosor={5} tamano={56}>
+            <Icono nombre="historial" tamano={20} />
+          </Anillo>
+          <div className="descanso-texto">
+            <span>Descanso</span>
+            <span className="descanso-reloj">{reloj(restante)}</span>
+          </div>
           <button onClick={() => setDescanso({ ...descanso, fin: descanso.fin + 15_000, total: descanso.total + 15 })} type="button">
             +15 s
           </button>
